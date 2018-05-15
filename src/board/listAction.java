@@ -37,19 +37,19 @@ public class listAction extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 		
-		list = sqlMapper.queryForList("selectAll");	//boardSQL.xml에 정의된 쿼리문을 실행하기위해서 게시들 전부를 가져온다.
-		totalCount = list.size();
+		list = sqlMapper.queryForList("selectAll");	//boardSQL.xml에 정의된 쿼리문을 실행하기위해서 게시 전부를 가져온다.
+		totalCount = list.size();	//디비에서 가져온 게시글의 갯
 		
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);
-		pagingHtml = page.getPagingHtml().toString();
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);	//페이징액션객체생
+		pagingHtml = page.getPagingHtml().toString();	 //페이징액션에서 처리한 pagingHtml을 스트링버퍼->문자열로 만든다.
 		
-		int lastCount = totalCount;
+		int lastCount = totalCount;	
 		
-		if(page.getEndCount() < totalCount){
-			lastCount = page.getEndCount()+1;
+		if(page.getEndCount() < totalCount){		
+			lastCount = page.getEndCount()+1;	
 		}
 		
-		list = list.subList(page.getStartCount(), lastCount);
+		list = list.subList(page.getStartCount(), lastCount);	
 		
 		return SUCCESS;
 	}
