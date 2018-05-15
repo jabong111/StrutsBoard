@@ -1,1 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap>
+	
+	<typeAlias alias="board" type="board.boardVO"/>
+	
+	<resultMap class="board" id="boardRes">
+		<result property="no" column="no"/>
+		<result property="subject" column="subject"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="content" column="content"/>
+		<result property="file_orgname" column="file_orgname"/>
+		<result property="file_savname" column="file_savname"/>
+		<result property="readhit" column="readhit"/>
+		<result property="regdate" column="regdate"/>
+	</resultMap>
+	
+	<sql id="select-all">
+		select * from SBoard66
+	</sql>
+	
+	<sql id="where-no">
+		where no = #no#
+	</sql>
+	
+	<select id="selectAll" resultMap="boardRes">
+		<include refid="select-all"/>
+		order by no desc
+	</select>
+	
+	<select id="selecrOne" resultMap="boardRes" parameterClass="int">
+		<include refid="select-all"/>
+		<include refid="where-no"/>
+	</select>
+	
+	<select id="selectLastNo" resultClass="board">
+		select max(no) as no from SBoard66
+	</select>
+	
+	<select id="selectPassword" resultMap="boardRes" parameterClass="board">
+		<include refid="select-all"/>
+		<include refid="where-no"/>
+		and password = #password#
+	</select>
+	
+	<insert id="insertBoard" parameterClass="board">
+		insert into SBoard66 (no,
+							  subject,
+							  name,
+							  password,
+							  content,
+							  regdate
+							  	)
+					values (sboard_no_seq66.nextval,
+							#subject#,
+							#name#,
+							#password#,
+							#content#,
+							#regdate#
+							)	
+	</insert>
+	
+	<update id="updateBoard" parameterClass="board">
+		update SBoard66 set subject = #subject#,
+							name = #name#,
+							password = #password#,
+							content = #content#
+		<include refid="where-no"/> 
+	</update>
+	
+	<update id="updateFile" parameterClass="board">
+		update SBoard66 set file_orgname = #file_orgname#,
+							file_savname = #file_savname#
+		<include refid="where-no"/>
+	</update>
+	
+	<update id="updateReadHit" parameterClass="board">
+		update SBoard66 set readhit = readhit+1
+		<include refid="where-no"/>
+	</update>
+	
+	<delete id="deleteBoard" parameterClass="board">
+		delete from SBoard66 
+		<include refid="where-no"/>
+	</delete>
+</sqlMap>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
