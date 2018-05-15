@@ -31,7 +31,7 @@
 		order by no desc
 	</select>
 	
-	<select id="selecrOne" resultMap="boardRes" parameterClass="int">
+	<select id="selectOne" resultMap="boardRes" parameterClass="int">
 		<include refid="select-all"/>
 		<include refid="where-no"/>
 	</select>

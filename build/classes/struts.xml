@@ -50,10 +50,30 @@
 	 </action>
 	 
 	 <action name="checkAction" class="board.viewAction" method="checkAction">
+	 	<result name="error">/board/checkError.jsp</result>
 	 	<result>/board/checkSuccess.jsp</result>
-	 </action> 
+	 </action>
+	 
+	 <action name="modifyForm" class="board.viewAction">
+	 	<result type="chain">writeForm</result>
+	 </action>
+	 
+	 <action name="modifyAction" class="board.modifyAction">
+	 	<result type="chain">viewAction</result>
+	 </action>
+		 
+	 <action name="deleteAction" class="board.deleteAction">
+		 <result type="chain">listAction</result>	 
+	 </action>
+
+
+
+
+	  
 	</package>	
 
+	
+	
 </struts>
 	
 	
