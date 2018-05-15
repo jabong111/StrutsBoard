@@ -165,8 +165,6 @@ public class viewAction extends ActionSupport{
 		this.contenLength = contenLength;
 	}
 	
-	
-	
 
 }
 
