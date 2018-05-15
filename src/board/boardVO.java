@@ -2,7 +2,7 @@ package board;
 
 import java.util.Date;
 
-public class boardVO {
+public class boardVO {	//자바빈 설정 
 	private int no;
 	private String name;
 	private String subject;

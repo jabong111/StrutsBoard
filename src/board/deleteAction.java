@@ -16,6 +16,7 @@ public class deleteAction extends ActionSupport{
 	private boardVO paramClass;
 	private boardVO resultClass;
 	
+	//폼에서 받아온 데이터들 
 	private int currentPage;
 	private String fileUploadPath = "C:\\java\\image\\";
 	private int no;
@@ -32,12 +33,12 @@ public class deleteAction extends ActionSupport{
 		paramClass = new boardVO();
 		resultClass = new boardVO();
 		
-		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());
+		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());		//디비에서 받아온다. 
 		
-		File deleteFile = new File(fileUploadPath+resultClass.getFile_savname());
+		File deleteFile = new File(fileUploadPath+resultClass.getFile_savname());	//파일을 지운다.
 		deleteFile.delete();
 		
-		paramClass.setNo(getNo());
+		paramClass.setNo(getNo());	//deleteBoard에서 자바빈을 인자로 받기때문에 paramClass자바빈을 만들어준다.  
 		
 		sqlMapper.update("deleteBoard",paramClass);
 		return SUCCESS;

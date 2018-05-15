@@ -4,9 +4,9 @@
 
 <sqlMap>
 	
-	<typeAlias alias="board" type="board.boardVO"/>
-	
-	<resultMap class="board" id="boardRes">
+	<typeAlias alias="board" type="board.boardVO"/>	<!-- 자바빈의 이름을 board로 정한다. -->
+		
+	<resultMap class="board" id="boardRes">  <!-- 디비와 자바빈을 연시킨다. -->
 		<result property="no" column="no"/>
 		<result property="subject" column="subject"/>
 		<result property="name" column="name"/>
@@ -26,27 +26,27 @@
 		where no = #no#
 	</sql>
 	
-	<select id="selectAll" resultMap="boardRes">
+	<select id="selectAll" resultMap="boardRes"><!--select문은 디비에서 가져온값을 넣는 자바빈이 필요하다 그걸 boardRes로 정의한다. -->
 		<include refid="select-all"/>
 		order by no desc
 	</select>
 	
-	<select id="selectOne" resultMap="boardRes" parameterClass="int">
+	<select id="selectOne" resultMap="boardRes" parameterClass="int">	<!--셀렉트문으로 디비에서 가져온 값을 자바빈에 매핑시키고 자바빈을  리턴한다 파라미터값은 인트형으로서 게시들 번호를 받는다. -->
 		<include refid="select-all"/>
 		<include refid="where-no"/>
 	</select>
 	
-	<select id="selectLastNo" resultClass="board">
-		select max(no) as no from SBoard66
+	<select id="selectLastNo" resultClass="board"><!--리턴하는 값이 하나일때 사용 resultClass -->
+		select max(no) as no from SBoard66	<!-- 게시글의 최신번호를 리턴 -->
 	</select>
 	
-	<select id="selectPassword" resultMap="boardRes" parameterClass="board">
+	<select id="selectPassword" resultMap="boardRes" parameterClass="board"><!-- 비밀번호와 게시글 번호가 일치하면 정보를 가져온다. -->
 		<include refid="select-all"/>
 		<include refid="where-no"/>
 		and password = #password#
 	</select>
 	
-	<insert id="insertBoard" parameterClass="board">
+	<insert id="insertBoard" parameterClass="board">	<!-- 값을 집어넣기 폼에서 입력받은 자바빈을 보내서 디비에 넣는다. -->
 		insert into SBoard66 (no,
 							  subject,
 							  name,
@@ -63,7 +63,7 @@
 							)	
 	</insert>
 	
-	<update id="updateBoard" parameterClass="board">
+	<update id="updateBoard" parameterClass="board"><!-- 업데이트폼에서 받은 데이터를 디비에 넣는다. -->
 		update SBoard66 set subject = #subject#,
 							name = #name#,
 							password = #password#,
@@ -71,13 +71,13 @@
 		<include refid="where-no"/> 
 	</update>
 	
-	<update id="updateFile" parameterClass="board">
+	<update id="updateFile" parameterClass="board">	<!-- 글 정보를 먼저 입력하고 업로드 파일을 디비에 넣기위해 따로 빼두었다. -->
 		update SBoard66 set file_orgname = #file_orgname#,
 							file_savname = #file_savname#
 		<include refid="where-no"/>
 	</update>
 	
-	<update id="updateReadHit" parameterClass="board">
+	<update id="updateReadHit" parameterClass="board"> 
 		update SBoard66 set readhit = readhit+1
 		<include refid="where-no"/>
 	</update>

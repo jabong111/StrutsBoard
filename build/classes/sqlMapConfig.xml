@@ -3,7 +3,9 @@
 	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 	
-<sqlMapConfig>	
+<sqlMapConfig>
+	<!-- 프로퍼티 파일에 있는 정보들을 이용해 ibatis디비 프레임워크를 사용하기위한 세팅을 한다. -->
+		
 	<properties resource="/dbconnect.properties"/>
 	
 	<!-- 
@@ -26,6 +28,6 @@
 	 		<property name="JDBC.Password" value="${password}"/>
 	 	</dataSource>
 	</transactionManager>
-	<sqlMap resource="/sql/boardSQL.xml"/>
+	<sqlMap resource="/sql/boardSQL.xml"/>	<!--쿼리문을 정의한 xml을 넣어준다. -->
 
 </sqlMapConfig>

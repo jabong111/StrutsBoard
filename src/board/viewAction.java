@@ -1,6 +1,7 @@
 package board;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.IOError;
 import java.io.IOException;
@@ -13,11 +14,11 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class viewAction extends ActionSupport{
+public class viewAction extends ActionSupport{		//게시글 상세보기 
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private boardVO paramClass = new boardVO();
+	private boardVO paramClass = new boardVO();		
 	private boardVO resultClass = new boardVO();
 	
 	private int currentPage;
@@ -27,24 +28,25 @@ public class viewAction extends ActionSupport{
 	
 	private String fileUploadPath = "C:\\java\\image\\";
 	
-	private InputStream inputStream;
-	private String contentDisposition;
-	private long contenLength;
-	
-	
-	public viewAction() throws IOException{
+	//다운로드시 필요한 변수와 객체
+	private InputStream inputStream; //struts.xml 에서 <param name="inputName"> 에 들어가야되고 
+	private String contentDisposition;	//<param name="contentDisposition">"attachment; filename="+URLEncoder.encode()+</param>
+	private long contenLength;			//<param name="contentLength">${}</param> 
+										//<param name="bufferSize">
+										//<param name="contentType>binary/octet-stream</param>
+	public viewAction() throws IOException{	//create constructor
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
 
 	@Override
-	public String execute() throws Exception {
+	public String execute() throws Exception { 	//읽으러 들어오면 
 		
 		paramClass.setNo(getNo());
-		sqlMapper.update("updateReadHit",paramClass);
+		sqlMapper.update("updateReadHit",paramClass);	//조회수 올려준다. 자동으로 
 		
-		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());
+		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo()); //상세보기 페이지에서 보여줄 내용들을 디비에서 가져와 담고있는 자바빈 jsp에서 사용한다.
 		
 		return SUCCESS;
 	}

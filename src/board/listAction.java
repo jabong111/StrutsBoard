@@ -14,18 +14,21 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class listAction extends ActionSupport{
 	public static Reader reader;
-	public static SqlMapClient sqlMapper;
+	public static SqlMapClient sqlMapper;	//디비와 쿼리문을 연결하기위한 객체들 
+		//컨트롤러에서 무슨액션을 실행할지 정해서 ->액션실행->디비작업후 포워드,리다이렉트시킨다->해당하는 jsp실행 
+		//컨트롤러는 FileDispatcher가 대신한다.
 	
-	private List<boardVO> list = new ArrayList<boardVO>();
+	private List<boardVO> list = new ArrayList<boardVO>();	//게시글 여러개를 가져오기 위해서 리스트를 작
 	
-	private int currentPage = 1;
-	private int totalCount;
-	private int blockCount=10;
-	private int blockPage=5;
-	private String pagingHtml;
-	private pagingAction page;
+	private int currentPage = 1;	//현재페이지 초기화
+	private int totalCount;	//게시글 총 몇개 있는지 
+	private int blockCount=10; // 
+	private int blockPage=5;	  //
+	private String pagingHtml; //페이징액션에서 만든 이전, 다음 페이지 문정 
+	private pagingAction page;	//페이지액션 객
 	
-	public listAction() throws IOException{
+	public listAction() throws IOException{	//생성자는 액션이 실행될때 실행된다.
+		
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
@@ -34,7 +37,7 @@ public class listAction extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 		
-		list = sqlMapper.queryForList("selectAll");
+		list = sqlMapper.queryForList("selectAll");	//boardSQL.xml에 정의된 쿼리문을 실행하기위해서 게시들 전부를 가져온다.
 		totalCount = list.size();
 		
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);
