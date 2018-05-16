@@ -130,6 +130,21 @@
 			</td>
 		</tr>
 	</table>
+	
+	<form action="commentAction.action" method="post" >
+		<table width="600" border="1" cellpadding="2" cellspacing="0">
+			<tr>
+				<td colspan="4">작성자:<input type="text" name="cname">
+				비밀번호:<input type="password" name="cpassword"></td>
+				<input type="hidden" name="no" value="<s:property value="resultClass.no"/>">
+			</tr>
+			<tr>
+				<td colspan="3"><textarea cols="50" rows="10" name="ccontent"></textarea></td>
+				<td><input type="submit" value="전송"></td>	
+			</tr>
+		</table>
+	</form>
+	
 </body>
 </html>
 

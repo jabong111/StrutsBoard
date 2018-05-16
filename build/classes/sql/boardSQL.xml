@@ -86,6 +86,28 @@
 		delete from SBoard66 
 		<include refid="where-no"/>
 	</delete>
+		
+	
+	<typeAlias alias="comment" type="board.commentVO"/>
+		
+	<resultMap class="comment" id="commentRes">
+		<result property="cno" column="cno"/>
+		<result property="cpassword" column="cpassword"/>
+		<result property="ccontent" column="ccontent"/>
+		<result property="cname" column="cname"/>
+		<result property="cdate" column="cdate"/>
+		<result property="no" column="no"/>
+	</resultMap>	
+		
+	<insert id="insertComment" parameterClass="comment">
+		insert into scomment66 (cno,cpassword,ccontent,cname,cdate,no)
+				values (scomment_no_seq66.nextval,#cpassword#,#ccontent#,#cname#,#cdate#,#no#)
+	</insert>
+	
+	<select id="selectComment" resultMap="commentRes" parameterClass="comment">
+		select * from scomment66 where no = #no# order by cno
+	</select>
+	
 </sqlMap>
 
 

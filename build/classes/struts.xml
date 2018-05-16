@@ -66,6 +66,10 @@
 	 <action name="deleteAction" class="board.deleteAction">
 		 <result type="chain">listAction</result>	 
 	 </action>
+	 
+	 <action name="commentAction" class="board.commentAction">
+	 	<result type="chain">viewAction</result>
+	 </action>
 	  
 	</package>	
 

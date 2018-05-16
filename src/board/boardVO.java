@@ -68,4 +68,5 @@ public class boardVO {	//자바빈 설정
 	}
 	
 	
+	
 }
