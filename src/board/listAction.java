@@ -51,7 +51,7 @@ public class listAction extends ActionSupport{
 		
 		list = list.subList(page.getStartCount(), lastCount);	
 		
-		return SUCCESS;
+		return SUCCESS;		//boardList.jsp에서 list, pagingHtml 등을 사용할수 있다.	셋/겟으로 정의된것만 jsp에서 사용가능
 	}
 
 

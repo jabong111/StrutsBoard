@@ -11,9 +11,9 @@
 <body>
 
 	<h2>비밀번호 확인</h2>
-	<form action="checkAction.action" method="post">
-	<s:hidden name="no" value="%{no}"/>
-	<s:hidden name="currentPage" value="%{currentPage}"/>
+	<form action="checkAction.action" method="post">	
+	<s:hidden name="no" value="%{no}"/>			<!-- 겟방식으로 넘어온 데이터 -->
+	<s:hidden name="currentPage" value="%{currentPage}"/>	<!-- 겟방식으로 넘어온 데이터 -->
 	
 	<table width="250" border="0" cellspacing="0" cellpadding="0">
 		<tr bgcolor="#777777">

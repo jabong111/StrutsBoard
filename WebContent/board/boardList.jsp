@@ -30,19 +30,19 @@
 			<td height="1" colspan="5"></td>
 		</tr>	
 		
-		<s:iterator value="list" status="stat">
-			<s:url id="viewURL" action="viewAction">
-				<s:param name="no">
-					<s:property value="no"/>
+		<s:iterator value="list" status="stat">		
+			<s:url id="viewURL" action="viewAction"><!--https://localhost:8080/StrutsBoard/viewAction.action?no=no&currrentPage=currentPage  -->	
+				<s:param name="no">						
+					<s:property value="no"/>			
 				</s:param>
-				<s:param name="currentPage">
+				<s:param name="currentPage">			
 					<s:property value="currentPage"/>
 				</s:param>
 			</s:url>
 			
 			<tr bgcolor="#FFFFFF" align="center" >
 				<td><s:property value="no"/></td>
-				<td align="left">&nbsp;<s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>
+				<td align="left">&nbsp;<s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>	
 				<td align="center"><s:property value="name"/></td>
 				<td align="center"><s:property value="regdate"/></td>
 				<td><s:property value="readhit"/></td>
@@ -52,8 +52,8 @@
 			</tr>
 		</s:iterator>
 		
-		<s:if test="list.size() <= 0">
-			<tr bgcolor="#FFFFFF" align="center">
+		<s:if test="list.size() <= 0">		
+					<tr bgcolor="#FFFFFF" align="center">
 				<td colspan="5">등록된 게시물이 없습니다.</td>
 			</tr>
 			<tr bgcolor="#777777">
@@ -67,7 +67,7 @@
 		<tr align="right">
 			<td colspan="5">
 				<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage"/>';">
-			</td>
+			</td>							<!--글쓰기 버튼을 누르면 writeForm.action을 처리한다.  -->
 		</tr>
 	</table>
 </body>

@@ -35,7 +35,7 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 	//파일 업로드 하기위한 파일객체랑 컨텐트타입, 컴퓨터에있는파일이름 
 	private File upload;
 	private String uploadContentType;
-	private String uploadFileName;
+	private String uploadFileName;	//업로드할때 실제 이름
 	private String fileUploadPath = "C:\\java\\image\\";
 	
 	public writeAction() throws IOException{		//boardSQL.xml내용을 사용하기위해 넣는다. 
@@ -73,7 +73,7 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 			FileUtils.copyFile(getUpload(), destFile);		//업로드한 파일을 설정한 경로에 카피한다. 
 			
 			paramClass.setNo(resultClass.getNo());			
-			paramClass.setFile_orgname(getUploadFileName());
+			paramClass.setFile_orgname(getUploadFileName());	//실제 이름
 			paramClass.setFile_savname(file_name+"."+file_ext);		//updateFile 쿼리문에는 게시글번호까지 들어가야된다.
 			
 			sqlMapper.update("updateFile",paramClass);

@@ -29,7 +29,7 @@
 			return false;
 		}
 		return true;
-	}
+	}				
 </script>
 </head>
 <body>
@@ -39,17 +39,18 @@
 		</tr>
 	</table>
 	
-	<s:if test="resultClass == NULL">
+	<s:if test="resultClass == NULL">	
 		<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
 	</s:if>
 	
-	<s:else>
+	<s:else>		<!-- 수정폼을 누르면 디비에서 가져오는 값이 있으므로 resultClass는 널이 아니게 된다. -->
 		<form action="modifyAction.action" method="post" enctype="multipart/form-data">
 		<s:hidden name="no" value="%{resultClass.no}"/>
 		<s:hidden name="currentPage" value="%{currentPage}"/>
-		<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
+		<s:hidden name="old_file" value="%{resultClass.file_savname}"/>		<!-- 저장된 파일이름을 새로운파일로 업르드하려면 지워야되기 때문에 old_file로 보낸다. -->
 	</s:else>
 	
+	<!-- 수정폼을 공유하기 때문에 value를 사용해 기존데이터들을 띄운다. -->
 	<table width="600" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td align="right" colspan="2"><font color="#FF0000">*</font>는 필수 입력사항입니다.</td>
@@ -119,7 +120,7 @@
 		
 		<tr>
 			<td align="right" colspan="2">
-				<input name="submit" type="submit" value="작성완료" class="inputb">
+				<input name="submit" type="submit" value="작성완료" class="inputb">	<!-- 완료하면 writeAction 으로 가서 처리하고  처리 다하고 listAction으로  리다이렉트-->
 				<input name="list" type="button" value="목록" class="inputb" onclick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage"/>'">
 			</td>
 		</tr>

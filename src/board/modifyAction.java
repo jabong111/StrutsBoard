@@ -19,9 +19,8 @@ public class modifyAction extends ActionSupport{
 	private boardVO paramClass;
 	private boardVO resultClass;
 	
+	//수정폼에서 입렫되거나 보내지는 값들
 	private int currentPage;
-	
-	//수정폼에서 입렫되는값들 
 	private int no;
 	private String subject;
 	private String name;

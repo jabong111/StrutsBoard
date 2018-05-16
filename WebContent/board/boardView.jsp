@@ -13,7 +13,7 @@
 	}
 </script>
 </head>
-
+			
 <body>
 	<table width="600" border="0" cellpadding="2" cellspacing="0">
 		<tr>
@@ -98,6 +98,7 @@
 				</s:param>
 			</s:url>
 			<s:a href="%{download}"><s:property value="resultClass.file_orgname"/></s:a>
+			<!-- download = https://localhost:8080/StrutsBoard/fileDownloadActon.action?no=no  urlÀü´Þ-->
 			</td>
 		</tr>
 		<tr bgcolor="#777777">

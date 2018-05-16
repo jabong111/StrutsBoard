@@ -53,15 +53,16 @@ public class viewAction extends ActionSupport{		//게시글 상세보기
 	
 	public String download() throws Exception{
 		
-		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());
-		File fileInfo = new File(fileUploadPath+resultClass.getFile_savname());
+		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());	//디비에서 게시글번호에 해당하는 값을 가져오고
+		File fileInfo = new File(fileUploadPath+resultClass.getFile_savname());	// C:\\java\\image\\file_1
 		
-		setContenLength(fileInfo.length());
-		setContentDisposition("attachment; filename="+URLEncoder.encode(resultClass.getFile_orgname(),"UTF-8"));
-		setInputStream(new FileInputStream(fileUploadPath+resultClass.getFile_savname()));
+		setContenLength(fileInfo.length());	//크기를 정하고
+		setContentDisposition("attachment; filename="+URLEncoder.encode(resultClass.getFile_orgname(),"UTF-8"));//저장해둔 원본이름을 가져와서 다운로드.
+		setInputStream(new FileInputStream(fileUploadPath+resultClass.getFile_savname()));	//읽어오는 스트림에서는 경로에 있는 이름을 가져와야되므로 저장된이름으로 가져온다.
 		
 		return SUCCESS;
 	}
+	
 	
 	public String checkForm() throws Exception{
 		return SUCCESS;
@@ -69,11 +70,11 @@ public class viewAction extends ActionSupport{		//게시글 상세보기
 	
 	public String checkAction() throws Exception{
 		
-		paramClass.setNo(getNo());
-		paramClass.setPassword(getPassword());
+		paramClass.setNo(getNo());	//checkPassword.jsp 에서 받은 게시글번호값
+		paramClass.setPassword(getPassword());	//checkPassword.jsp에서 입력받은 
 		
 		resultClass = (boardVO)sqlMapper.queryForObject("selectPassword",paramClass);
-		if(resultClass == null) {
+		if(resultClass == null) {	//비번이 안맞으면
 			return ERROR;
 		}
 		return SUCCESS;
