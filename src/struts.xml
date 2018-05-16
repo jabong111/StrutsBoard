@@ -66,6 +66,16 @@
 	 <action name="deleteAction" class="board.deleteAction">
 		 <result type="chain">listAction</result>	 
 	 </action>
+	 
+	 <!-- 코멘트달기 -->
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	  
 	</package>	
 

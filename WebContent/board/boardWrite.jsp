@@ -8,7 +8,7 @@
 <title>°Ô½ÃÆÇ</title>
 <link rel="stylesheet" href="/board/common/css/css.css" type="text/css">
 <script type="text/javascript">
-	function validation(){
+	function validation(){ 
 		var frm = document.forms(0);
 		
 		if(frm.subject.value==""){
