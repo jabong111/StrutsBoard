@@ -70,10 +70,10 @@
 	 
 	 <!-- comment -->
 	 <action name="commentAction" class="board.commentAction">
-	 	<result type="chain">viewAction</result>
+	 	<result >/board/commentSuccess.jsp</result>
 	 </action>
 	 
-	 <!-- success로 보내고 url로 viewaction으로 보낸다.-->
+	 <!-- commentSuccess로 보내고 url로 viewaction으로 보낸다.-->
 	 <!-- currentPage, no 를 넘겨서 받아주는 commentViewAction실행 후 viewAction 으로 currentPage, no을 넘겨주는  url을 실행시키는 자바스크립트 페이지를 만든가. -->
 	 
 	 <!-- 답글 ref에 시퀀스 현재값 넣기 sboard66_seq_num.curval  -->

@@ -15,6 +15,14 @@ public class boardVO {	//자바빈 설정
 	private int ref;
 	private int re_level;
 	private int re_step;
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getNo() {
 		return no;
 	}

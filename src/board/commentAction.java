@@ -47,6 +47,8 @@ public class commentAction extends ActionSupport{
 			
 		sqlMapper.insert("insertComment",paramClass);
 		
+		sqlMapper.update("commentCount",getNo());
+		
 		return SUCCESS;
 	}
 

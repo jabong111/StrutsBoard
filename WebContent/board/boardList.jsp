@@ -2,6 +2,7 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -42,7 +43,12 @@
 			
 			<tr bgcolor="#FFFFFF" align="center" >
 				<td><s:property value="no"/></td>
-				<td align="left">&nbsp;<s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>	
+				<s:if test="count != 0">
+					<td align="left">&nbsp;<s:a href="%{viewURL}"><s:property value="subject"/></s:a>[<s:property value="count"/>]</td>
+				</s:if>
+				<s:else>
+					<td align="left">&nbsp;<s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>
+				</s:else>	
 				<td align="center"><s:property value="name"/></td>
 				<td align="center"><s:property value="regdate"/></td>
 				<td><s:property value="readhit"/></td>

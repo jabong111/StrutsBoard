@@ -19,6 +19,7 @@
 		<result property="ref" column="ref"/>
 		<result property="re_level" column="re_level"/>
 		<result property="re_step" column="re_step"/>
+		<result property="count" column="count"/>
 	</resultMap>
 	
 	<sql id="select-all">
@@ -133,6 +134,11 @@
 	<delete id="deleteComment" parameterClass="comment">
 		delete from scomment66 where no = #no# and cno = #cno#
 	</delete>
+	
+	<!-- 답변개수올려주기  -->
+	<update id="commentCount" parameterClass="int">
+		update sboard66 set count = count+1 where no = #no#
+	</update>
 	
 	
 	
