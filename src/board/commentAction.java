@@ -14,7 +14,7 @@ public class commentAction extends ActionSupport{
 	public static SqlMapClient sqlMapper;
 	
 	//폼에서 받아오는거 
-	private int currentPage;
+	private int currentPage;	//받았고 리다이렉트로 보내줄때 값을 보내줘야돼
 	private int no;
 	private int cno;
 	private String cname;

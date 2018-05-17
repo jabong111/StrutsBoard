@@ -11,6 +11,7 @@
 	function open_win_noresizable(url,name){
 		var oWin = window.open(url,name,"scrollbars=no,status=no,resizable=no,width=300,height=150");
 	}
+	
 </script>
 </head>
 			
@@ -131,12 +132,13 @@
 		</tr>
 	</table>
 	
-	<form action="commentAction.action" method="post" >
+	<form action="commentAction.action" method="post">
 		<table width="600" border="1" cellpadding="2" cellspacing="0">
 			<tr>
 				<td colspan="4">작성자:<input type="text" name="cname">
 				비밀번호:<input type="password" name="cpassword"></td>
 				<input type="hidden" name="no" value="<s:property value="resultClass.no"/>">
+				<input type="hidden" name="currentPage" value="<s:property value="currentPage"/>">
 			</tr>
 			<tr>
 				<td colspan="3"><textarea cols="50" rows="10" name="ccontent"></textarea></td>
@@ -144,6 +146,25 @@
 			</tr>
 		</table>
 	</form>
+	<s:if test="commentList.size() == 0">
+		<table>
+			<tr>
+				<td align="center">댓글이 없습니다.</td>
+			</tr>
+		</table>
+	</s:if>
+	<s:else>
+		<s:iterator value="commentList" status="stat">
+		<table border="1">
+			<tr>
+				<td colspan="5">번호:<s:property value="cno"/>&nbsp;&nbsp;작성자:<s:property value="cname"/>&nbsp;&nbsp;&nbsp;&nbsp;날짜:<s:property value="cdate"/><td>
+			</tr>
+			<tr>
+				<td colspan="4"><s:property value="ccontent"/></td>
+				<td><input type="button" value="삭제" onclick="javascript:open_win_noresizable('checkCPasswordForm.action?no=<s:property value="resultClass.no"/>&currentPage=<s:property value="currentPage"/>&cno=<s:property value="cno"/>','deleteComment')"></td>
+		</table>
+		</s:iterator>
+	</s:else>
 	
 </body>
 </html>

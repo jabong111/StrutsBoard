@@ -15,8 +15,11 @@
 	}else if(window.name == 'delete'){
 		alert("삭제되었씁니다.");
 		window.opener.parent.location.href='deleteAction.action?no=<s:property value="no"/>&currentPage=<s:property value="currentPage"/>';
-		
+	}else if(window.name == 'deleteComment'){
+		alert("삭제되었습습니다.");
+		window.opener.parent.location.href='deleteCommentAction.action?no=<s:property value="no"/>&currentPage=<s:property value="currentPage"/>&cno=<s:property value="cno"/>';
 	}
+	
 	window.close;
 }
 
