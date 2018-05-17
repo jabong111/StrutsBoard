@@ -40,11 +40,13 @@
 	</table>
 	<s:if test="reply">	<!-- reply action에서 트루로 바꿔준다. -->
 		<form action="replyAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+		<s:hidden name="ref" value="%{resultClass.ref}"/>
+		<s:hidden name="re_step" value="%{resultClass.re_step}"/>
+		<s:hidden name="re_level" value="%{resultClass.re_level}"/>
 	</s:if>
 	
 	<s:elseif test="resultClass == NULL">	<!-- 새글이면 ref, re_step, re_level 이 모두 0으로 등록된다. -->
 		<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
-		<s:hidden name="ref" value="0"/>
 		<s:hidden name="re_step" value="0"/>
 		<s:hidden name="re_level" value="0"/>
 	</s:elseif>

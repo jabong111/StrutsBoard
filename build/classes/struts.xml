@@ -93,12 +93,15 @@
 	 
 	 
 	 <!-- reply replyForm,replyAction -->
+	 
 	 <action name="replyForm" class="board.replyAction" method="form">
 	 	<result>/board/boardWrite.jsp</result>
 	 </action>
 	 
 	 <action name="replyAction" class="board.replyAction">
-	 	<result type="chain">listAction</result>
+	 	<result type="redirect-action">
+	 		<param name="actionName">listAction</param>
+	 	</result>
 	 </action>
 	 
 	 

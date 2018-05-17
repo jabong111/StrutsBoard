@@ -1,6 +1,11 @@
 package board;
 
+import java.io.File;
 import java.io.Reader;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -13,11 +18,14 @@ public class replyAction extends ActionSupport{
 	
 	private int no;
 	private int currentPage;
-	private boolean reply;
+	private boolean reply = false;
 	private String subject;
 	private String name;
 	private String password;
 	private String content;
+	
+	Calendar today = Calendar.getInstance();
+	
 	private String file_orgname;
 	private String fils_savname;
 	private int ref;
@@ -26,6 +34,11 @@ public class replyAction extends ActionSupport{
 	
 	private boardVO paramClass;
 	private boardVO resultClass;
+	
+	File upload;
+	String uploadContentType;
+	String uploadFileName;
+	String fileUploadPath = "C:\\java\\image\\";
 	
 	public replyAction() throws Exception{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -39,28 +52,61 @@ public class replyAction extends ActionSupport{
 	 */
 	@Override
 	public String execute() throws Exception {
-		// TODO Auto-generated method stub
-		return super.execute();
+		paramClass = new boardVO();
+		resultClass = new boardVO();
+		
+		paramClass.setNo(getNo());
+		paramClass.setSubject(getSubject());
+		paramClass.setName(getName());
+		paramClass.setPassword(getPassword());
+		paramClass.setContent(getContent());
+		paramClass.setRegdate(today.getTime());
+		
+		paramClass.setRef(getRef());	//61
+		paramClass.setRe_step(getRe_step());	//1
+		sqlMapper.update("updateReplyStep", paramClass);	//기존 스텝값을 1 올린다. ->2
+		
+		paramClass.setRe_step(getRe_step()+1);
+		paramClass.setRe_level(getRe_level() + 1);
+		paramClass.setRef(getRef());
+		
+		sqlMapper.insert("insertReply",paramClass);
+		
+		if(getUpload() != null) {
+			resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());
+			
+			String file_name = "file_"+ resultClass.getNo();
+			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf(".")+1 , getUploadFileName().length() );
+			
+			File destFile = new File(fileUploadPath+file_name+"."+file_ext);
+			FileUtils.copyFile(getUpload(), destFile);
+			
+			paramClass.setFile_orgname(getUploadFileName());
+			paramClass.setFile_savname(file_name+"."+file_ext);
+			paramClass.setNo(getNo());
+			
+			sqlMapper.update("updateFile",paramClass);
+		}
+		
+		return SUCCESS;
 	}
 
 
 	public String form() throws Exception{	//폼을 보여준다. no, currentPage가 넘어와서 저장된다 
 		reply = true;
-		paramClass = new boardVO();
 		resultClass = new boardVO();
-		
-		paramClass.setNo(getNo());
-		
-		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",paramClass);	//게시글 하나를 가져와서 답변을 붙이고 ref,re_step,re_level 조
+		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());	//게시글 하나를 가져와서 답변을 붙이고 ref,re_step,re_level 조
 		
 		resultClass.setSubject("[답변]"+resultClass.getSubject());
 		resultClass.setName("");
 		resultClass.setContent("");
 		resultClass.setPassword("");
-		resultClass.setFile_orgname("");
+		resultClass.setFile_orgname(null);
+		resultClass.setFile_savname(null);
 		
 		return SUCCESS;
 	}
+	
 	public static Reader getReader() {
 		return reader;
 	}
@@ -156,6 +202,24 @@ public class replyAction extends ActionSupport{
 	}
 	public void setResultClass(boardVO resultClass) {
 		this.resultClass = resultClass;
+	}
+	public File getUpload() {
+		return upload;
+	}
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
 	}
 	
 	

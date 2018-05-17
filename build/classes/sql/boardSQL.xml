@@ -31,7 +31,7 @@
 	
 	<select id="selectAll" resultMap="boardRes"><!--select문은 디비에서 가져온값을 넣는 자바빈이 필요하다 그걸 boardRes로 정의한다. -->
 		<include refid="select-all"/>
-		order by no desc
+		ORDER BY ref DESC, re_step ASC
 	</select>
 	
 	<select id="selectOne" resultMap="boardRes" parameterClass="int">	<!--셀렉트문으로 디비에서 가져온 값을 자바빈에 매핑시키고 자바빈을  리턴한다 파라미터값은 인트형으로서 게시들 번호를 받는다. -->
@@ -72,6 +72,14 @@
 							)	
 	</insert>
 	
+	<update id="updateReplyStep" parameterClass="board">
+		update sboard66 set re_step = re_step+1 where ref = #ref# and re_step > #re_step#
+	</update>
+	
+	<insert id="insertReply" parameterClass="board">
+		insert into sboard66 (no,subject,name,password,content,regdate,ref,re_level,re_step)
+					values (sboard_no_seq66.nextval,#subject#,#name#,#password#,#content#,#regdate#,#ref#,#re_level#,#re_step#)		
+	</insert>
 	
 	<update id="updateBoard" parameterClass="board"><!-- 업데이트폼에서 받은 데이터를 디비에 넣는다. -->
 		update SBoard66 set subject = #subject#,

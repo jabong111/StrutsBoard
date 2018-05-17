@@ -64,7 +64,7 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 		paramClass.setPassword(getPassword());
 		paramClass.setContent(getContent());
 		paramClass.setRegdate(today.getTime());	
-		paramClass.setRef(getRef());
+		//paramClass.setRef(getRef());
 		paramClass.setRe_level(getRe_level());
 		paramClass.setRe_step(getRe_step());
 		
