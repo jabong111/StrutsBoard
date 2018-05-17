@@ -39,11 +39,14 @@
 		</tr>
 	</table>
 	<s:if test="reply">	<!-- reply action에서 트루로 바꿔준다. -->
-		<form action="replyAction.action" method="post">
+		<form action="replyAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
 	</s:if>
 	
-	<s:elseif test="resultClass == NULL">	
+	<s:elseif test="resultClass == NULL">	<!-- 새글이면 ref, re_step, re_level 이 모두 0으로 등록된다. -->
 		<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+		<s:hidden name="ref" value="0"/>
+		<s:hidden name="re_step" value="0"/>
+		<s:hidden name="re_level" value="0"/>
 	</s:elseif>
 	
 	<s:else>		<!-- 수정폼을 누르면 디비에서 가져오는 값이 있으므로 resultClass는 널이 아니게 된다. -->

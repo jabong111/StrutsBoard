@@ -16,6 +16,9 @@
 		<result property="file_savname" column="file_savname"/>
 		<result property="readhit" column="readhit"/>
 		<result property="regdate" column="regdate"/>
+		<result property="ref" column="ref"/>
+		<result property="re_level" column="re_level"/>
+		<result property="re_step" column="re_step"/>
 	</resultMap>
 	
 	<sql id="select-all">
@@ -52,16 +55,23 @@
 							  name,
 							  password,
 							  content,
-							  regdate
+							  regdate,
+							  ref,
+							  re_level,
+							  re_step
 							  	)
 					values (sboard_no_seq66.nextval,
 							#subject#,
 							#name#,
 							#password#,
 							#content#,
-							#regdate#
+							#regdate#,
+							sboard_no_seq66.currval,			<!-- 현재 시퀀스값이랑 같게 한다. -->
+							#re_level#,
+							#re_step#
 							)	
 	</insert>
+	
 	
 	<update id="updateBoard" parameterClass="board"><!-- 업데이트폼에서 받은 데이터를 디비에 넣는다. -->
 		update SBoard66 set subject = #subject#,

@@ -64,6 +64,9 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 		paramClass.setPassword(getPassword());
 		paramClass.setContent(getContent());
 		paramClass.setRegdate(today.getTime());	
+		paramClass.setRef(getRef());
+		paramClass.setRe_level(getRe_level());
+		paramClass.setRe_step(getRe_step());
 		
 		sqlMapper.insert("insertBoard",paramClass);	//게시글 에 필요한 데이터먼저 디비에 넣고 파일처리를 한다. 
 		
@@ -246,6 +249,8 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 	public void setRe_step(int re_step) {
 		this.re_step = re_step;
 	}
+
+	
 	
 	
 	
