@@ -30,6 +30,11 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 	private String content;	//내용 
 	private String file_orgName;	//오리지날 파일 이름 
 	private String file_savName;	//처리를해서 저장하는 이름 
+	
+	private int ref;	//글의 시퀀스값이랑 같에 글과 답변을 묶어준다. 그룹화
+	private int re_level;	// 답글인지 답글의 답글인지 
+	private int re_step;	// 보여주는 차례 답글 쓸때마다 1씩 증가시켜서 큰 값이 위로 올라오게 한다.
+	
 	Calendar today = Calendar.getInstance();	//데이트 저장 
 	
 	//파일 업로드 하기위한 파일객체랑 컨텐트타입, 컴퓨터에있는파일이름 
@@ -216,6 +221,30 @@ public class writeAction extends ActionSupport{	//폼에서 얻은 데이터를 
 
 	public void setFileUploadPath(String fileUploadPath) {
 		this.fileUploadPath = fileUploadPath;
+	}
+
+	public int getRef() {
+		return ref;
+	}
+
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+
+	public int getRe_level() {
+		return re_level;
+	}
+
+	public void setRe_level(int re_level) {
+		this.re_level = re_level;
+	}
+
+	public int getRe_step() {
+		return re_step;
+	}
+
+	public void setRe_step(int re_step) {
+		this.re_step = re_step;
 	}
 	
 	

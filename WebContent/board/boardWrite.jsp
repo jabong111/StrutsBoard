@@ -38,10 +38,13 @@
 			<td align="center"><h2>스트럿츠 게시판</h2></td>
 		</tr>
 	</table>
-	
-	<s:if test="resultClass == NULL">	
-		<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	<s:if test="reply">	<!-- reply action에서 트루로 바꿔준다. -->
+		<form action="replyAction.action" method="post">
 	</s:if>
+	
+	<s:elseif test="resultClass == NULL">	
+		<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	</s:elseif>
 	
 	<s:else>		<!-- 수정폼을 누르면 디비에서 가져오는 값이 있으므로 resultClass는 널이 아니게 된다. -->
 		<form action="modifyAction.action" method="post" enctype="multipart/form-data">
