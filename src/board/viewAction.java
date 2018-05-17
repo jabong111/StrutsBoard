@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -20,6 +22,10 @@ public class viewAction extends ActionSupport{		//게시글 상세보기
 	
 	private boardVO paramClass = new boardVO();		
 	private boardVO resultClass = new boardVO();
+	
+	private commentVO cresultClass = new commentVO();
+	
+	private List<commentVO> commentList = new ArrayList<commentVO>();
 	
 	private int currentPage;
 	
@@ -42,17 +48,16 @@ public class viewAction extends ActionSupport{		//게시글 상세보기
 
 	@Override
 	public String execute() throws Exception { 	//읽으러 들어오면 
-		
 		paramClass.setNo(getNo());
 		sqlMapper.update("updateReadHit",paramClass);	//조회수 올려준다. 자동으로 
 		
 		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo()); //상세보기 페이지에서 보여줄 내용들을 디비에서 가져와 담고있는 자바빈 jsp에서 사용한다.
-		
+		commentList = sqlMapper.queryForList("selectCommentAll",getNo());
+				
 		return SUCCESS;
 	}
 	
 	public String download() throws Exception{
-		
 		resultClass = (boardVO)sqlMapper.queryForObject("selectOne",getNo());	//디비에서 게시글번호에 해당하는 값을 가져오고
 		File fileInfo = new File(fileUploadPath+resultClass.getFile_savname());	// C:\\java\\image\\file_1
 		
@@ -166,6 +171,22 @@ public class viewAction extends ActionSupport{		//게시글 상세보기
 
 	public void setContenLength(long contenLength) {
 		this.contenLength = contenLength;
+	}
+
+	public commentVO getCresultClass() {
+		return cresultClass;
+	}
+
+	public void setCresultClass(commentVO cresultClass) {
+		this.cresultClass = cresultClass;
+	}
+
+	public List<commentVO> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<commentVO> commentList) {
+		this.commentList = commentList;
 	}
 	
 
